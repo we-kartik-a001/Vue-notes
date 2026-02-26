@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, watch, reactive } from 'vue'
 
 // ref
 const message = ref('Hello vue!');
@@ -27,10 +27,16 @@ const intervalId = setInterval(function () {
 }, 1000);
 
 setTimeout(() => {
-    clearInterval(intervalId);
-    counter.value= "Time over go for the lunch";
+  clearInterval(intervalId);
+  counter.value = "Time over go for the lunch";
 }, 5000);
 
+const data = ref(0)
+
+watch(data, (oldvalue, newvalue) => {
+  console.log('old value', oldvalue);
+  console.log('new value', newvalue);
+})
 </script>
 
 <template>
@@ -49,6 +55,13 @@ setTimeout(() => {
   <div>
     <p class="px-2">{{ counter }}</p>
   </div>
+
+  <div>
+    <input v-model="data" placeholder="Type your name" class="border p-2" />
+
+    <p>Typed value: {{ data }}</p>
+  </div>
+
 </template>
 
 <style scoped></style>
